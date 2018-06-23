@@ -1,25 +1,34 @@
-import numpy as np
 import math
 import random
-import itertools
+
+import numpy as np
+
 from .SyntheticDataset import SyntheticDataset
 
 
 class NoiseCircle(SyntheticDataset):
 
-    def __init__(self, seed=0, dim=64):
+    def __init__(self, seed=0, dim=64, batch_size=32):
         super().__init__()
         np.random.seed(seed)
 
+        self.batch_size = batch_size
         self.dim = dim
         self.min_circle_width = int(dim / 8)
         self.num_circle_dots = 500
         self.circle_width_px = 3
         self.darkness = .5
 
-    def next(self):
-        for i in itertools.count(1):
-            yield self.create_dataset_row()
+    def __iter__(self):
+        return self.__next__()
+
+    def __next__(self):
+        while True:
+            batch = []
+            for i in range(self.batch_size):
+                batch.append(self.create_dataset_row())
+
+            yield np.asarray(batch)
 
     def create_dataset(self, rows):
         labels = []

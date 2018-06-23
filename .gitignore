@@ -4,3 +4,4 @@ dist
 build
 synthetic_datasets.egg-info
 synthetic_datasets/__pycache__
+main.py
