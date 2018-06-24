@@ -12,17 +12,17 @@ class NoiseCircle(SyntheticDataset):
     Y = "Y"
     R = "R"
 
-    def __init__(self, seed=0, dim=64, batch_size=32, labels=(X, Y, R)):
+    def __init__(self, seed=0, dim=64, batch_size=32, width=2, darkness=.5, labels=(X, Y, R)):
         super().__init__()
         np.random.seed(seed)
 
         self.labels = labels
         self.batch_size = batch_size
         self.dim = dim
-        self.min_circle_width = int(dim / 8)
-        self.num_circle_dots = 500
-        self.circle_width_px = 3
-        self.darkness = .5
+        self.min_circle_width = int(dim / 10)
+        self.num_circle_dots = dim*6
+        self.circle_width_px = width
+        self.darkness = darkness
 
     def __iter__(self):
         return self.__next__()
