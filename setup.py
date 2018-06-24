@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="synthetic_datasets",
-    version="0.1.8",
+    version="0.1.9",
     description="synthetic datasets for benchmarking AI and machine learning",
     long_description=long_description,
     author="Dave MacDonald",
