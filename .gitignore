@@ -5,3 +5,6 @@ build
 synthetic_datasets.egg-info
 synthetic_datasets/__pycache__
 main.py
+.pytest_cache
+.cache
+__pycache__

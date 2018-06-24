@@ -26,9 +26,14 @@ Example use::
     from synthetic_datasets import NoiseCircle
 
     nc = NoiseCircle(batch_size=32, dim=64)
-    for batch in nc:
-        // batch is a (32, 64, 64) numpy array of noise circle images
+    for samples, labels in nc:
+
+        // samples  is a (32, 64, 64) numpy array of noise circle images
+        // labels   is a (32, 3) numpy array, of three components for each sample:
+        //          the X, Y, and RADIUS (in pixels) of the circle in the image.
 ```
+
+
 
 ## Licence
 MIT

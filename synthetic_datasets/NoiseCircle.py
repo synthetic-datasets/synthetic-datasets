@@ -24,11 +24,14 @@ class NoiseCircle(SyntheticDataset):
 
     def __next__(self):
         while True:
-            batch = []
+            samples = []
+            labels = []
             for i in range(self.batch_size):
-                batch.append(self.create_dataset_row())
+                sample, label = self.create_dataset_row()
+                samples.append(sample)
+                labels.append(label)
 
-            yield np.asarray(batch)
+            yield np.array(samples), np.array(labels)
 
     def create_dataset(self, rows):
         labels = []
