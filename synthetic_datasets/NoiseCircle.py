@@ -8,10 +8,15 @@ from .SyntheticDataset import SyntheticDataset
 
 class NoiseCircle(SyntheticDataset):
 
-    def __init__(self, seed=0, dim=64, batch_size=32):
+    X = "X"
+    Y = "Y"
+    R = "R"
+
+    def __init__(self, seed=0, dim=64, batch_size=32, labels=(X, Y, R)):
         super().__init__()
         np.random.seed(seed)
 
+        self.labels = labels
         self.batch_size = batch_size
         self.dim = dim
         self.min_circle_width = int(dim / 8)
@@ -24,23 +29,28 @@ class NoiseCircle(SyntheticDataset):
 
     def __next__(self):
         while True:
-            samples = []
-            labels = []
-            for i in range(self.batch_size):
-                sample, label = self.create_dataset_row()
-                samples.append(sample)
-                labels.append(label)
+            yield self.create_batch()
 
-            yield np.array(samples), np.array(labels)
 
-    def create_dataset(self, rows):
-        labels = []
+    def create_batch(self):
         samples = []
-        for i in range(rows):
+        x_targets = []
+        y_targets = []
+        r_targets = []
+        for i in range(self.batch_size):
             data, label = self.create_dataset_row()
-            labels.append(label)
+            x, y, r = tuple(label)
+            x_targets.append(x)
+            y_targets.append(y)
+            r_targets.append(r)
+
             samples.append(data)
-        return (np.array(samples).astype(np.float32), np.array(labels).astype(np.float32))
+        labels = {
+            NoiseCircle.X: np.array(x_targets),
+            NoiseCircle.Y: np.array(y_targets),
+            NoiseCircle.R: np.array(r_targets)
+        }
+        return (np.array(samples), labels)
 
     # Create random noise and draw circles in it
     def create_dataset_row(self):

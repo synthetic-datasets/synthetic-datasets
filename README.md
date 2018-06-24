@@ -29,8 +29,9 @@ Example use::
     for samples, labels in nc:
 
         // samples  is a (32, 64, 64) numpy array of noise circle images
-        // labels   is a (32, 3) numpy array, of three components for each sample:
-        //          the X, Y, and RADIUS (in pixels) of the circle in the image.
+        // labels   is a dict with three keys, "X", "Y", and "R".
+        //          These represent the X, Y, and RADIUS (in pixels) of the circle in the image.
+        //          Each key holds a numpy array of shape (32,)
 ```
 
 
