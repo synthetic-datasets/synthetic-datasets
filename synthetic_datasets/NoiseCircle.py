@@ -64,7 +64,7 @@ class NoiseCircle(SyntheticDataset):
         xpos = random.random() * self.dim
         ypos = random.random() * self.dim
 
-        self._draw_circle(data, xpos, ypos, radius, self.darkness, self.width)
+        self._draw_circle(data, xpos, ypos, radius, self.darkness, self.circle_width_px)
 
         return [xpos, ypos, radius + self.circle_width_px / 2]
 
